@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MessagesApp.UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Class="MessagesApp.UI.Views.MainWindowView"
+        x:DataType="vm:MainWindowViewModel"
+        mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
+        Width="1024" Height="600"
+        MinWidth="800" MinHeight="400"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Messages app">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel></vm:MainWindowViewModel>
+    </Design.DataContext>
+
+    <Grid ColumnDefinitions="Auto, *">
+        <Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}"> </Border>
+        <ContentControl Grid.Column="1" Content="{Binding CurrentPage}" />
+        <Grid Grid.Column="0" RowDefinitions="*, Auto">
+            <StackPanel Spacing="20" Margin="20">
+                
+                <!-- Sidemenu buttons -->
+                <Button HorizontalAlignment="Stretch" Classes.active="{Binding MessagePageActive}"
+                        Command="{Binding GoToMessagesCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <Label Classes="icon"
+                               Content="{Binding HasUnreadMessages, Converter={StaticResource BoolToIconConverter}}">
+                        </Label>
+                    </StackPanel>
+                </Button>
+                <Button HorizontalAlignment="Stretch" Classes.active="{Binding CreationPageActive}"
+                        Command="{Binding GoTomessageCreationCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <Label Classes="icon" Content="&#xE3B2;"></Label>
+                    </StackPanel>
+                </Button>
+                <Button HorizontalAlignment="Stretch" Classes.active="{Binding SettingsPageActive}"
+                        Command="{Binding GoToSettingsCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <Label Classes="icon" Content="&#xE270;"></Label>
+                    </StackPanel>
+                </Button>
+                
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

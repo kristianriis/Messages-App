@@ -1,0 +1,57 @@
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:MessagesApp.UI.ViewModels"
+    x:DataType="vm:MessageCreationViewModel"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    x:Class="MessagesApp.UI.Views.MessageCreationView">
+
+    <Grid RowDefinitions="Auto, *">
+        <TextBlock Grid.Row="0" Margin="20,20,20,0" Classes="prompts" Text="Write" FontSize="20" />
+
+        <!-- Sender input -->
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="20">
+                <TextBlock Classes="prompts" FontWeight="Bold" Margin="0,5">Sender:</TextBlock>
+                <TextBox Text="{Binding NewMessage.Sender, UpdateSourceTrigger=PropertyChanged}" MaxLength="35" />
+                <Label IsVisible="{Binding FalseNameInput}" Grid.Column="2"
+                       Classes="icon"
+                       Content="&#xE4E0;"
+                       Foreground="red"
+                       FontSize="16"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="0,-34,2,0" />
+                
+                <!-- Email input -->
+                <TextBlock Classes="prompts" FontWeight="Bold" Margin="0,5">Email:</TextBlock>
+                <TextBox Text="{Binding NewMessage.Email, UpdateSourceTrigger=PropertyChanged}" MaxLength="45" />
+                <Label IsVisible="{Binding FalseEmailInput}" Grid.Column="2"
+                       Classes="icon"
+                       Content="&#xE4E0;"
+                       Foreground="red"
+                       FontSize="16"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="0,-34,2,0" />
+                
+                <!-- Subject input -->
+                <TextBlock Classes="prompts" FontWeight="Bold" Margin="0,5">Subject:</TextBlock>
+                <TextBox Text="{Binding NewMessage.Subject, UpdateSourceTrigger=PropertyChanged}" MaxLength="35" />
+
+                <!-- Text content input -->
+                <TextBlock Classes="prompts" FontWeight="Bold" Margin="0,15,0,5">Content:</TextBlock>
+                <TextBox Text="{Binding NewMessage.Text, UpdateSourceTrigger=PropertyChanged}" Height="100"
+                         AcceptsReturn="True" TextWrapping="Wrap" MaxLength="1000" />
+                <Border Padding="0,10,5,0">
+                    <Button Command="{Binding CreateNewMessageCommand}" HorizontalAlignment="Left">
+                        <Label Classes="icon" Content="&#xE396;" />
+                    </Button>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,121 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Design Preview -->
+    <Design.PreviewWith>
+        <Button Grid.Row="1">
+            <Label Classes="iconOnly" Content="&#xE270;" />
+        </Button>
+    </Design.PreviewWith>
+
+    <!-- Global Font Defaults -->
+    <Style Selector=":is(TemplatedControl)">
+        <Setter Property="FontFamily" Value="{DynamicResource QuicksandFont}" />
+    </Style>
+
+    <!-- Label Styles -->
+    <Style Selector="Label.icon">
+        <Setter Property="FontFamily" Value="{DynamicResource PhosphorFamily}" />
+        <Setter Property="FontSize" Value="25" />
+        <Setter Property="Padding" Value="4,9,4,9" />
+    </Style>
+
+    <Style Selector="Label.iconOnly">
+        <Setter Property="FontFamily" Value="{DynamicResource PhosphorFamily}" />
+        <Setter Property="Padding" Value="10,0,0,0" />
+    </Style>
+
+    <!-- TextBlock Styles -->
+    <Style Selector="TextBlock.prompts">
+        <Setter Property="FontFamily" Value="{DynamicResource QuicksandFontBold}" />
+    </Style>
+
+    <!-- Button Styles -->
+    <Style Selector="Button">
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
+        <Setter Property="Background" Value="#10101000" />
+        <Setter Property="Padding" Value="4,0,4,0" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2" />
+                </Transitions>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button:pointerover">
+        <Setter Property="Background" Value="#2A2A2A" />
+    </Style>
+
+    <Style Selector="Button.active /template/ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryOrange}" />
+    </Style>
+
+    <!-- ListBoxItem Styles -->
+    <Style Selector="ListBoxItem">
+        <Setter Property="Background" Value="#10101000" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Padding" Value="6" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.1" />
+                </Transitions>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover">
+        <Setter Property="Background" Value="#242424" />
+    </Style>
+
+    <!-- TextBox Styles -->
+    <Style Selector="TextBox">
+        <Setter Property="Background" Value="#10101000" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Padding" Value="6" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.1" />
+                </Transitions>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryOrange}" />
+    </Style>
+
+    <!-- ComboBox Styles -->
+    <Style Selector="ComboBox">
+        <Setter Property="Background" Value="#10101000" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryOrange}" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2" />
+                </Transitions>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="ComboBox:pointerover">
+        <Setter Property="Background" Value="#2A2A2A" />
+    </Style>
+
+    <Style Selector="ComboBox:pressed /template/ Border#Background">
+        <Setter Property="Background" Value="{DynamicResource ComboBoxBackgroundPressed}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryOrange}" />
+    </Style>
+
+    <Style Selector="ComboBox /template/ Path#DropDownGlyph">
+        <Setter Property="Fill" Value="Red" />
+    </Style>
+
+</Styles>

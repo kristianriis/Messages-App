@@ -1,0 +1,41 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MessagesApp.UI.App"
+             xmlns:local="using:MessagesApp.UI"
+             xmlns:conv="clr-namespace:MessagesApp.UI.Converters"
+             RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+
+    <Application.Resources>
+        <conv:BoolToIconConverter x:Key="BoolToIconConverter" />
+        <SolidColorBrush x:Key="PrimaryBackground">#CFCFCF</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryText" Color="#EEEEEE" />
+        <LinearGradientBrush x:Key="PrimaryBackgroundGradient" StartPoint="0%,0%" EndPoint="0%,100%">
+            <GradientStop Offset="0" Color="#000000"></GradientStop>
+            <GradientStop Offset="1" Color="#121217"></GradientStop>
+        </LinearGradientBrush>
+
+        <SolidColorBrush x:Key="PrimaryHover">#404040</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryHoverText">#ffffff</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryOrange">#ff8b3a</SolidColorBrush>
+
+
+        <FontFamily x:Key="QuicksandFont">/Assets/Fonts/Quicksand-Regular.ttf#Quicksand</FontFamily>
+        <FontFamily x:Key="QuicksandFontBold">/Assets/Fonts/Quicksand-Bold.ttf#Quicksand</FontFamily>
+        <FontFamily x:Key="QuicksandSemiBold">/Assets/Fonts/Quicksand-SemiBold.ttf#Quicksand</FontFamily>
+        
+        <FontFamily x:Key="PhosphorFamily">/Assets/Fonts/Phosphor/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
+
+    </Application.Resources>
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="Styles/AppDefaultStyles.axaml"></StyleInclude>
+
+    </Application.Styles>
+</Application>

@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:MessagesApp.UI.ViewModels"
+             x:DataType="vm:SettingsViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MessagesApp.UI.Views.SettingsView">
+
+    <StackPanel Margin="20">
+        <TextBlock Margin="0,0,0,20" Classes="prompts" Text="Settings" FontSize="20"></TextBlock>
+        <!-- Username -->
+        <TextBlock Classes="prompts" FontWeight="Bold" Margin="0 5">User name:</TextBlock>
+        <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" MaxLength="30" />
+
+        <!-- Email input -->
+        <TextBlock Classes="prompts" FontWeight="Bold" Margin="0 5">User email:</TextBlock>
+        <TextBox Text="{Binding UserEmail, UpdateSourceTrigger=PropertyChanged}" MaxLength="45" />
+        <Label IsVisible="{Binding FalseInput}" Grid.Column="2"
+               Classes="icon"
+               Content="&#xE4E0;"
+               Foreground="red"
+               FontSize="16"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Right"
+               Margin="0,-34,2,0" />
+
+        <!-- Save button -->
+        <Border Padding="0,10,5,0">
+            <Button Command="{Binding SaveSettingsCommand}" HorizontalAlignment="Left">
+                <Label Classes="icon" Content="&#xE248;" /> <!-- Save icon -->
+            </Button>
+        </Border>
+    </StackPanel>
+</UserControl>

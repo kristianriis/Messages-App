@@ -1,0 +1,208 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:MessagesApp.UI.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             x:DataType="vm:MessageViewModel"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MessagesApp.UI.Views.MessageView">
+    <Grid>
+
+        <!-- Top bar -->
+        <Grid IsVisible="{Binding !IsMessageSelected}" VerticalAlignment="Top" Height="50" Background="Black"
+              ZIndex="10">
+            <Border Padding="5,20,0,0">
+                <StackPanel Orientation="Horizontal" Spacing="20" Margin="15,0,0,0">
+                    <TextBlock Classes="prompts" Text="Inbox" FontSize="20" />
+                    <ComboBox ItemsSource="{Binding SortOptions}"
+                              SelectedItem="{Binding SelectedSortOption}"
+                              Width="140"
+                              Height="24"
+                              FontSize="13"
+                              Background="Transparent"
+                              Margin="0,-3,0,0" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Message list -->
+        <ScrollViewer IsVisible="{Binding !IsMessageSelected}"
+                      Margin="0,65,0,0"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <Grid HorizontalAlignment="Stretch">
+                <Border Grid.Column="0" Margin="15,0,15,0">
+                    <StackPanel>
+                        <ListBox ItemsSource="{Binding Messages}"
+                                 SelectedItem="{Binding SelectedMessage, Mode=TwoWay}"
+                                 Padding="0,1,0,0"
+                                 Background="Transparent"
+                                 VerticalAlignment="Stretch">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="Auto,Auto,*,Auto" RowDefinitions="Auto,Auto"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Stretch">
+
+                                        <!-- Gravatar -->
+                                        <Image Source="{Binding GravatarImage}"
+                                               Width="40" Height="40"
+                                               Stretch="UniformToFill"
+                                               Opacity="{Binding GravatarOpacity}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Grid.RowSpan="2">
+                                            <Image.Clip>
+                                                <RectangleGeometry Rect="0,0,40,40" RadiusX="5" RadiusY="5" />
+                                            </Image.Clip>
+                                        </Image>
+
+                                        <!-- Sender & Subject -->
+                                        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+                                                    VerticalAlignment="Center" Margin="10,0">
+                                            <TextBlock Text="{Binding Sender}"
+                                                       FontFamily="{DynamicResource QuicksandSemiBold}" />
+                                            <TextBlock Text="{Binding Subject}" FontSize="13" />
+                                        </StackPanel>
+
+                                        <!-- unread and date -->
+                                        <Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="2"
+                                              Margin="5,0,5,0"
+                                              Width="115"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Right">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="24" /> 
+                                                <ColumnDefinition Width="*" />  
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <!-- Unread marker -->
+                                            <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                                                   IsVisible="{Binding !HasBeenRead}"
+                                                   Classes="icon"
+                                                   Content="&#xECF2;"
+                                                   FontSize="16"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="-10,0,0,0" /> 
+
+                                            <!-- Date -->
+                                            <TextBlock Grid.Column="1" Grid.Row="0"
+                                                       Text="{Binding Date, StringFormat=d}"
+                                                       FontWeight="Bold"
+                                                       FontSize="13"
+                                                       HorizontalAlignment="Right" />
+
+                                            <!-- Time -->
+                                            <TextBlock Grid.Column="1" Grid.Row="1"
+                                                       Text="{Binding Date, StringFormat=T}"
+                                                       FontSize="12"
+                                                       HorizontalAlignment="Right" />
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- Top Buttons (Back / Delete) -->
+        <Grid IsVisible="{Binding IsMessageSelected}" VerticalAlignment="Top">
+            <!-- Hacky background -->
+            <Border Background="#121217"
+                    Opacity=".6"
+                    Height="155"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    Margin="-75,0,-220,10"
+                    IsHitTestVisible="False" />
+
+            <!-- Topbar buttons -->
+            <StackPanel Orientation="Horizontal"
+                        Margin="15,20,0,0"
+                        Spacing="5"
+                        VerticalAlignment="Top">
+                <Button Command="{Binding GoBackCommand}" Background="Transparent">
+                    <Label Classes="icon" Content="&#xE51A;" />
+                </Button>
+                <Button Command="{Binding DeleteMessageCommand}" Background="Transparent">
+                    <Label Classes="icon" Content="&#xE4A6;" />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Detail message -->
+        <Grid IsVisible="{Binding IsMessageSelected}" ZIndex="1">
+            <Grid Margin="20,50,0,0" ColumnDefinitions="auto, *">
+                <Grid Grid.Column="1" Margin="0">
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, *" ColumnDefinitions="*, Auto">
+
+                        <!-- Sender Name -->
+                        <StackPanel Margin="-5,15,0,0" Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                            <Label Content="{Binding SelectedMessage.CombinedSenderName, FallbackValue='(No Sender)'}"
+                                   FontFamily="{DynamicResource QuicksandFont}"
+                                   FontSize="20" />
+                        </StackPanel>
+
+                        <!-- Date and Gravatar -->
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"
+                                    Margin="0,-12,19,0">
+                            <TextBlock Text="{Binding SelectedMessage.Date, StringFormat='MMM dd, yyyy HH:mm'}"
+                                       FontSize="14"
+                                       Foreground="Gray"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0" />
+                            <Border CornerRadius="10" Background="Transparent" ClipToBounds="True">
+                                <Image Source="{Binding SelectedMessage.GravatarImage}"
+                                       Width="75" Height="75"
+                                       Stretch="UniformToFill"
+                                       ClipToBounds="True" />
+                            </Border>
+                        </StackPanel>
+
+                        <!-- App username and email -->
+                        <TextBlock Grid.Row="1" Margin="0,-15,0,0" Grid.Column="0" FontSize="14"
+                                   Text="{Binding SelectedMessage.CombinedOwnerName}" />
+
+                        <!-- Subject -->
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                                   Text="{Binding SelectedMessage.Subject}"
+                                   FontFamily="{DynamicResource QuicksandSemiBold}"
+                                   Foreground="{DynamicResource PrimaryOrange}"
+                                   FontSize="22"
+                                   Margin="0,10,0,5"
+                                   TextWrapping="Wrap" />
+
+                        <!-- Seperator line thing -->
+                        <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                   Background="WhiteSmoke"
+                                   Margin="-75,-4,-220,10"
+                                   Height="2"
+                                   Opacity=".7"
+                                   HorizontalAlignment="Stretch" />
+
+                        <!-- Text content -->
+                        <ScrollViewer Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      Background="Transparent"
+                                      Margin="0"
+                                      Name="MessageScrollViewer">
+                            <TextBlock Text="{Binding SelectedMessage.Text}"
+                                       TextWrapping="Wrap"
+                                       FontSize="14"
+                                       LineHeight="24"
+                                       Margin="0,10,15,20" />
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
