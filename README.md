@@ -12,5 +12,7 @@ Sorting by date or sender name
 Responsive UI with virtualized message list
 Lightweight JSON-based data persistence
 MVVM pattern with dependency injection
-How to Run
-Run in ide or call ./BuildApp.sh to create a new .app file in the build folder.
+
+
+How to Run:
+Run in ide or call ./BuildApp.sh in project root to create a new .app file in the build folder.
