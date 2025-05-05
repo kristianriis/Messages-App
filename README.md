@@ -15,4 +15,4 @@ MVVM pattern with dependency injection
 
 
 How to Run:
-Run in ide or call ./BuildApp.sh in project root to create a new .app file in the build folder.
+Run in ide or call ./BuildApp.sh in project root to create a new .app file in the build folder. (only arm macs)
